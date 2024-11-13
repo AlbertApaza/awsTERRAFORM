@@ -7,12 +7,6 @@ resource "aws_s3_bucket" "bucket" {
   bucket = "albertapaza-iot-bucket"
 }
 
-# Configurar el ACL del bucket S3 a privado (sin usar el argumento acl en aws_s3_bucket)
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "private"
-}
-
 # Definir la política que permite a Firehose asumir el rol
 data "aws_iam_policy_document" "firehose_assume_role" {
   statement {
