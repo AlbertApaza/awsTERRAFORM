@@ -1,0 +1,60 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: T01
+      id: t01
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: T01
+        setup-command: ''
+        command: cat FirehoseWriteIoTSensors.py | grep IOT-temp.csv
+        timeout: 10
+        max-score: 4
+    - name: T02
+      id: t02
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: T02
+        setup-command: ''
+        command: cat README.md | grep ":role/LabRole"
+        timeout: 10
+        max-score: 4
+    - name: T03
+      id: t03
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: T03
+        setup-command: ''
+        command: cd infra && cat main.tf | grep s3
+        timeout: 10
+        max-score: 4
+    - name: T04
+      id: t04
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: T04
+        setup-command: cd infra && terraform init
+        command: cd infra && terraform plan | grep firehose && terraform apply
+        timeout: 10
+        max-score: 8
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        T01_RESULTS: "${{steps.t01.outputs.result}}"
+        T02_RESULTS: "${{steps.t02.outputs.result}}"
+        T03_RESULTS: "${{steps.t03.outputs.result}}"
+        T04_RESULTS: "${{steps.t04.outputs.result}}"
+      with:
+        runners: t01,t02,t03,t04
