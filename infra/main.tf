@@ -1,13 +1,7 @@
-
 # Crear un bucket de S3 para el destino con el nombre personalizado
 resource "aws_s3_bucket" "bucket" {
   bucket = "albertapaza-iot-bucket"
-}
-
-# Configurar el ACL del bucket S3 a privado
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "private"
+  acl    = "private"  # Definimos el ACL directamente aquí
 }
 
 # Definir la política que permite a Firehose asumir el rol
@@ -15,13 +9,12 @@ data "aws_iam_policy_document" "firehose_assume_role" {
   statement {
     effect = "Allow"
     
-# firehose
+    # firehose
+    actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
       identifiers = ["firehose.amazonaws.com"]
     }
-
-    actions = ["sts:AssumeRole"]
   }
 }
 
@@ -36,12 +29,11 @@ data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     effect = "Allow"
 
+    actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
-
-    actions = ["sts:AssumeRole"]
   }
 }
 
@@ -72,7 +64,7 @@ resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
 
     # Configuración del procesamiento de datos a través de Lambda
     processing_configuration {
-      enabled = "true"
+      enabled = true
 
       processors {
         type = "Lambda"
