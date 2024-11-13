@@ -22,9 +22,9 @@ jobs:
         run: |
           mkdir -p ~/.aws/
           echo "[default]" > ~/.aws/credentials
-          echo "aws_access_key_id=${AWS_ACCESS_KEY_ID}" >> ~/.aws/credentials
-          echo "aws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" >> ~/.aws/credentials
-          echo "aws_session_token=${AWS_SESSION_TOKEN}" >> ~/.aws/credentials
+          echo "aws_access_key_id=ASIASVSVZFFBVM4LLOTW" >> ~/.aws/credentials
+          echo "aws_secret_access_key=9oVwv5BRd8+C8RLPrdNSkv04jwNxdkgsxzc4/XlC" >> ~/.aws/credentials
+          echo "aws_session_token=IQoJb3JpZ2luX2VjEDoaCXVzLXdlc3QtMiJHMEUCICAkqKMznrchluKp2XNiyOoDU2JhOI7lgKWFzpHGoGTuAiEAkEt/dfP8RlsYdCNqRFBk6mDQ7rp9BJzO8PPo6TcWnEYqvAIIwv//////////ARABGgwxODM3ODk3NTg3ODciDN08VDhomCGV7FEfHiqQAuH1x2EsDgi0wvP2Q+vtXgSGPf7mplzLGqimRdeDsJ123PZWKQcWadEVj4SSXPgFY+VeT5zRl8OyYYLFH2ksUnRSgzpYvHIjYetfJGnJiYja78L1qrA3PzsQXkh4nqmaV9BgKTB8zVmfyBUi9xiUQLzuIDpQPEJRsDyz16gsqP/YhJGyyz7TjvPhp2ArGcZy8/8Mvqhc3SLSQuRlRuU5BXDZCOksB7DKk1F51qmkkYm/Chh0WOfse/0EaUaeaI4NBAtUPAwqFAIvMibkpHNUj9MDrQWsMwQ/ZLvfenN3k0maHKqu15lMpufXd/hByEwAfUoiASgqrsWx1q9DxrK7EQlBfnoBVd8dyoZhroStwqvHMIOczrkGOp0B32cJqCO8lx7PRIlHpwd6YkRvpQt5o3w19br2uGo1bR5Pm7M7uLDvHJ9ALkv27Nt7m0kswA43P7D0GUuSEYvBXk3sA5B6Pt5A5iprMnJSTX7QrrFIJYEMbCoRSe409RrRR7r6wyhy3wSmUQjN1lawcdsWHU7OqmitHXv0UBaKTssS+kTMV+P+gONXZqAD24q8RJNCBvu0PUC5TS23aQ==" >> ~/.aws/credentials
           echo "[default]" > ~/.aws/config
           echo "region=us-east-1" >> ~/.aws/config
 
@@ -64,7 +64,7 @@ jobs:
         with:
           test-name: T04
           setup-command: cd infra && terraform init
-          command: cd infra && terraform plan | grep firehose && terraform apply -auto-approve
+          command: cd infra && terraform plan | grep firehose && terraform apply
           timeout: 10
           max-score: 8
 
