@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "firehose_assume_role" {
   statement {
     effect = "Allow"
     
-    # firehose
+    # Permitir a Firehose asumir el rol
     principals {
       type        = "Service"
       identifiers = ["firehose.amazonaws.com"]
@@ -33,6 +33,7 @@ data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     effect = "Allow"
 
+    # Permitir a Lambda asumir el rol
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
